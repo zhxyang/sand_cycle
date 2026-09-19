@@ -1,0 +1,201 @@
+=================================================================
+FIGURE REPOSITORY MANIFEST
+Dams trap more sand than global demand (Nature, 2026)
+Generated: 2026-09-19
+=================================================================
+
+MAIN TEXT FIGURES
+=================================================================
+
+Figure 1: The journey of sand from uplands to coasts and cities
+  Type: Conceptual diagram
+  Script: N/A (created externally, e.g., Adobe Illustrator)
+  Data: None
+  Notes: Schematic showing sand journey from lithosphere weathering
+         through transport, storage, and anthropogenic interception
+
+Figure 2: Global reservoir storage capacity and sand-and-gravel extraction
+  Script: scripts/main_figures/fig2_capacity_extraction_trends.py
+  Data:
+    - data/source_data_fig3_time_series_nominal.csv
+    - data/GDW_enriched_rates_2026_02_01.csv (enriched GDW dataset)
+    - GRanD v1.3 shapefile (external)
+  Output:
+    - Panel a: Nominal cumulative reservoir capacity (1900-2023)
+    - Panel b: Annual sand and gravel extraction trends
+  Key numbers:
+    - Global reservoir capacity: ~7000 km³ by 2020
+    - Annual extraction: ~50 Gt yr⁻¹ by 2020
+
+Figure 3: Global reservoir sand trapping and construction-sand demand
+  Panel a - Global map with demand overlay:
+    Script: scripts/main_figures/fig3a_map_v2.py
+    Data:
+      - data/GREI_sand_trapping_v1.csv (555,960 reservoirs)
+      - sand-demand-2023-2025-BAU-50km.tif (gridded demand, 50km)
+    Output: World map showing reservoir points binned by trapping rate
+            (Mt yr⁻¹) overlaid on demand raster
+
+  Panel b - [Combined layout element]
+
+  Panel c - Regional comparison scatter:
+    Script: scripts/main_figures/fig3c_scatter_v5.py
+    Data:
+      - Regional aggregates from GREI analysis
+      - Regional demand estimates
+    Output: Scatter plot of regional trapping vs demand
+    Key numbers:
+      - Global trapping: ~12 Gt yr⁻¹
+      - Global demand: ~10.5 Gt yr⁻¹
+      - Regional ratios vary 0.2x (East Asia) to 10x (North America)
+
+Figure 4: Dredging unit costs by dredging quantity and fiscal year
+  Script: scripts/main_figures/fig4_dredge_cost_v3.py
+  Data:
+    - data/cost/contract/*.csv (USACE DIS contracts)
+    - data/source_data_cost_scale_curves.csv
+  Output:
+    - Panel a: Log-log regression (quantity vs unit cost)
+    - Panel b: Temporal trends by contract size bins
+  Key findings:
+    - Strong scale economies (power law exponent ~-0.3)
+    - 95% prediction interval with bias correction
+    - Robustness check with year-controlled regression (HC3)
+
+=================================================================
+SUPPLEMENTARY FIGURES
+=================================================================
+
+Figure S1: Flow diagram of systematic literature review and calculation framework
+  Script: scripts/SI_figures/figS1_framework_v3.py
+  Data: None (conceptual workflow)
+  Output: Database structure diagram showing:
+    - A1 (GREI): 555,960 reservoirs, annual sedimentation volumes
+    - A2 (GDW): 35,295 reservoirs, spatial backbone
+    - B: Literature (508 reservoirs, 72 studies) - sedimentation rates
+    - C: Literature (16 obs) - sand fraction (median 20.1%)
+  Notes: Corrected database labels to reflect primary vs validation roles
+
+Figure S2: Reservoir sand trapping overlaid on GHSL built-up areas
+  Script: scripts/SI_figures/figS2_GHSL_overlay_v2.py
+  Data:
+    - data/GREI_sand_trapping_v1.csv
+    - GHSL built-up surface product (GHS-BUILT-S, external from JRC)
+  Output: Global map showing spatial overlap between reservoirs and
+          human settlements
+  Key finding: >50% of reservoirs within 8 km of built-up areas
+
+Figure S3: Lorenz concentration curves for annual reservoir sand trapping
+  Script: scripts/SI_figures/figS3_lorenz_concentration.py
+  Data: data/GREI_sand_trapping_v1.csv
+  Output: Cumulative trapping vs cumulative reservoir count, by region
+  Key numbers:
+    - Top 1% by capacity → 89% of global trapping
+    - Top 10% by capacity → 98% of global trapping
+
+Figure S4: Spatial distribution for largest 10% reservoirs by storage capacity
+  Script: scripts/SI_figures/figS4_map_top10pct_v3.py
+  Data: data/GREI_sand_trapping_v1.csv (filtered to top 10%)
+  Output: Global map showing high-capacity reservoirs (≥1.9 MCM)
+  Notes: Demonstrates geographic spread of major trapping sites
+
+Figure S5: Trapping-weighted proximity to built-up areas and demand
+  Script: scripts/SI_figures/figS5_cdf_distance_v2.py
+  Data:
+    - data/GREI_sand_trapping_v1.csv (with distance calculations)
+    - Pre-computed distances to GHSL built-up and demand pixels
+  Output: Cumulative distribution curves (trapping-weighted)
+  Key numbers:
+    - Median distance to demand: 22 km
+    - 75% of trapping within: 32 km of demand
+    - Median distance to built-up: 26 km
+
+Figure S6: Sensitivity of global annual reservoir sand trapping estimates
+  Script: scripts/SI_figures/figS6_demand_sensitivity_v1.py
+  Data:
+    - Sensitivity analysis results (sedimentation rate × sand fraction)
+    - Literature-derived parameter distributions
+  Output:
+    - Panel a: 2D sensitivity heatmap
+    - Panel b: One-at-a-time parameter variation
+  Key ranges:
+    - Sedimentation: 36.1 ± 18.0 km³ yr⁻¹ (GREI P10-P90)
+    - Sand fraction: 8.8-43.0% (P10-P90, median 20.1%)
+    - Combined trapping range: 5-25 Gt yr⁻¹
+    - Demand range: 8.4-12.6 Gt yr⁻¹
+
+=================================================================
+KEY DATA FILES
+=================================================================
+
+PRIMARY DATASETS:
+- GREI_sand_trapping_v1.csv (136 MB, 555,960 rows)
+  Columns: reservoir_id, lat, lon, capacity_MCM, annual_sed_km3_yr,
+           sand_fraction_pct, sand_trapping_Mt_yr, region, ...
+  Note: Consider Git LFS for version control
+
+- global_reservoir_sediment_database_Yi.csv
+  Literature compilation: 508 reservoirs, 72 studies, 31 countries
+  Parameters: sand fraction, sedimentation rates, capacity loss
+
+- source_data_fig3_time_series_nominal.csv
+  Time series for Fig 2: capacity trends, extraction trends
+
+- source_data_cost_scale_curves.csv
+  Processed USACE contract data for dredging cost analysis
+
+EXTERNAL DATA (not included, must be obtained separately):
+- GDW v1.0: doi.org/10.6084/m9.figshare.24808665
+- GREI dataset: Liu et al. (2026) Nature Sustainability
+- GHSL built-up: ghsl.jrc.ec.europa.eu
+- Demand raster: Wu et al. IMAGINE-Concrete model
+- GRanD v1.3: globaldamwatch.org
+
+=================================================================
+SOFTWARE ENVIRONMENT
+=================================================================
+
+Python 3.10+
+numpy >= 1.24
+pandas >= 2.0
+geopandas >= 0.13
+matplotlib >= 3.7
+scipy >= 1.10
+rasterio >= 1.3
+tifffile >= 2023.7
+
+All scripts tested on Windows 11 with Anaconda environment
+
+=================================================================
+REPRODUCIBILITY CHECKLIST
+=================================================================
+
+[x] All figure-generating scripts identified
+[x] Source data files documented
+[x] Key numbers cross-referenced with manuscript
+[x] External data sources listed with DOIs/URLs
+[x] Software dependencies specified
+[ ] Path variables updated in scripts (currently hardcoded)
+[ ] Large files migrated to Git LFS
+[ ] External data downloaded and placed in data/
+[ ] Environment.yml created for conda
+
+=================================================================
+NOTES
+=================================================================
+
+1. All scripts currently use absolute paths (C:\Users\xzhon\...)
+   These need to be updated to relative paths or environment variables
+   before publication
+
+2. GREI_sand_trapping_v1.csv (136 MB) should be managed with Git LFS
+   or provided as supplementary data archive
+
+3. Some figures may have been finalized with external tools (Adobe
+   Illustrator) after initial generation in Python - check with authors
+
+4. Fig 3 panels may have been assembled in external layout software
+   Individual panels are generated separately by scripts
+
+5. Distance calculations in Fig S5 are pre-computed - see spatial
+   analysis scripts for computation details

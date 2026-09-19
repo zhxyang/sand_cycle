@@ -1,0 +1,92 @@
+================================================================================
+REPOSITORY SUMMARY
+================================================================================
+
+REPOSITORY LOCATION:
+C:\Users\own_path\figure_repository
+
+CONTENTS:
+- 10 figure generation scripts (4 main + 6 SI)
+- 5 data files (1 large CSV + 4 small CSVs)
+- 7 documentation files
+- 1 path configuration module
+- 1 example script
+
+================================================================================
+SCRIPTS
+================================================================================
+
+Main Text (4 scripts):
+  ✓ fig2_capacity_extraction_trends.py    - Capacity & extraction trends
+  ✓ fig3a_map_v2.py                       - Global map with demand overlay
+  ✓ fig3c_scatter_v5.py                   - Regional comparison
+  ✓ fig4_dredge_cost_v3.py                - Cost analysis
+
+Supplementary (6 scripts):
+  ✓ figS1_framework_v3.py                 - Framework diagram
+  ✓ figS2_GHSL_overlay_v2.py              - GHSL overlay
+  ✓ figS3_lorenz_concentration.py         - Lorenz curves
+  ✓ figS4_map_top10pct_v3.py              - Top 10% map
+  ✓ figS5_cdf_distance_v2.py              - Distance CDFs
+  ✓ figS6_demand_sensitivity_v1.py        - Sensitivity analysis
+
+================================================================================
+DATA FILES
+================================================================================
+
+Included (5 files, ~136 MB total):
+  ✓ GREI_sand_trapping_v1.csv             - 136 MB (555,960 reservoirs)
+  ✓ global_reservoir_sediment_database_Yi.csv - 64 KB (literature)
+  ✓ source_data_fig3_time_series_nominal.csv - 3.5 KB
+  ✓ source_data_cost_scale_curves.csv     - 1.6 KB
+  ✓ source_data_fig1_cost_scale_curves.csv - 1.3 KB
+
+External (documented, must be obtained):
+  - GDW database (35,295 reservoirs)
+  - GHSL built-up surface (1km grid)
+  - Construction demand raster (50km grid)
+  - USACE dredging contracts
+  - GRanD v1.3 (legacy)
+
+================================================================================
+DOCUMENTATION
+================================================================================
+
+User Documentation:
+  ✓ README.md                    - Main repository documentation
+  ✓ QUICKSTART.md                - Getting started guide
+  ✓ MANIFEST.txt                 - Detailed figure specifications
+  ✓ DATA_INVENTORY.md            - Data file descriptions
+
+Technical:
+  ✓ requirements.txt             - Python dependencies
+  ✓ setup_paths.py               - Path configuration module
+  ✓ CHANGELOG.md                 - Version history
+  ✓ .gitignore                   - Git ignore rules
+
+================================================================================
+KEY NUMBERS (for verification)
+================================================================================
+
+Reservoirs:       555,960 (GREI dataset)
+Annual trapping:  ~11.6 Gt yr⁻¹ (central estimate)
+                   5-25 Gt yr⁻¹ (P10-P90 sensitivity)
+Demand:           ~10.5 Gt yr⁻¹ (concrete sand)
+                   8.4-12.6 Gt yr⁻¹ (range)
+
+Spatial coupling:
+  - Median distance to demand:     22 km
+  - 75% trapping within:           32 km
+  - Median distance to built-up:   26 km
+  - Count median to built-up:       8 km
+
+Concentration:
+  - Top 1% by capacity:            ~89% of trapping
+  - Top 10% by capacity:           ~98% of trapping
+
+Regional trapping (largest):
+  - North America:                 ~2.6 Gt yr⁻¹
+  - Latin America:                 ~2.1 Gt yr⁻¹
+  - Eastern Asia:                  ~1.5 Gt yr⁻¹
+
+================================================================================
